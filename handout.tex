@@ -6,7 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
-\usepackage{tikz}
+\usepackage{mathrsfs}
 \usepackage{bm}
 
 \usepackage{cite}
@@ -18,14 +18,16 @@
 \newcommand{\Z}{\ensuremath{\mathbb{Z}}}
 \newcommand{\Q}{\ensuremath{\mathbb{Q}}}
 \newcommand{\R}{\ensuremath{\mathbb{R}}}
-\newcommand{\E}{\ensuremath{\mathbf{E}}}
-\newcommand{\X}{\ensuremath{\mathcal{X}}}
-\newcommand{\Prob}{\ensuremath{\mathbf{P}}}
-\newcommand{\Var}{\ensuremath{\mathrm{Var}}}
-\newcommand{\Cov}{\ensuremath{\mathrm{Cov}}}
-\newcommand{\TV}{\ensuremath{\mathrm{TV}}}
-\newcommand{\one}{\ensuremath{\bm{1}}}
-\newcommand{\A}{\ensuremath{\mathcal{A}}}
+\newcommand{\G}{\ensuremath{\mathscr{G}}}
+\newcommand{\w}{\ensuremath{\omega}}
+\newcommand{\W}{\ensuremath{\Omega}}
+\newcommand{\F}{\ensuremath{\mathscr{F}}}
+
+\newcommand{\stcomp}[1]{{#1}^{\mathsf{c}}}
+
+
+
+
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{satz}{Satz}[section]
@@ -51,7 +53,7 @@
   #1 (\textsf{#2})
   \hfill
   #3
-  \blfootnote{Seminar \glqq Markovketten und stochastische Algorithmen\grqq, SS 2020, Universität Bonn}
+  \blfootnote{Seminar \glqq Statistische Mechanik von Gittersystemen\grqq, SoSe 2021, Universität Bonn}
 
   \noindent
   \rule{\linewidth}{.5pt}
@@ -66,14 +68,88 @@
 
   \handouttitle{Ben Breitinger}
                {ben.breitinger@uni-bonn.de}
-               {30. Juni 2020}
-               {Untere Schranken für Mischzeiten, Bottlenecks}
+               {DATUM}
+               {Infinite-Volume Gibbs Measures II}
   
   \begin{abstract}
-    Da wir das Konvergenzverhalten nicht nur von oben, sondern auch von unten beschränken wollen, interessieren uns untere Schranken für die Mischzeit. 
-    Dazu führen wir das Flaschenhals-Verhältnis, welches ein auf Graphen besonders anschauliches Konstrukt ist, ein, womit wir Abschätzungen für untere Schranken von $t_{\text{mix}}$ erhalten werden. 
-    Diese wenden wir auf zwei aneinandergeklebte Tori und einen Binärbaum an.
-
-    In einem weiteren Abschnitt werden wir eine statistische Methode entwickeln, um untere Schranken für $t_{\text{mix}}$ zu erhalten. Mithilfe dieser neugewonnen Techniken werden wir eine Abschätzung für die Mischzeit eines Random Walks auf dem Hyperwürfel herleiten. 
+    ABSTRACT
   \end{abstract}
+  
+  \section{Einleitung}
+  In der vorigen Woche haben wir gesehen, dass $\G(\pi) \neq \emptyset$, falls $\pi = \{ \pi_{\Lambda} \}
+  _{\Lambda \Subset \Z^d}$ eine quasilokale Spezifikation ist. Nun wollen wir uns der Frage widmen, wann ein $\mu \in \G(\pi)$ eindeutig ist, und welche Bedingungen wir dafür an $\pi$ stellen müssen. Diese Frage steht in direktem Zusammenhang mit der Frage nach Phasenübergängen. 
+  
+  Wir betrachten zwei zentrale Methoden - den \textit{Satz von Dobrushin} und die \textit{Cluster Expansion} -, welche uns Kriterien an die Hand geben werden, mit denen wir einige Anwendungen betrachten werden können.
+  
+  Hat die Spezifikation $\pi$ gewisse Symmetrieeigenschaften, so können wir auch auf Symmetrie der Gibbs-Maße schließen. Folglich werden wir Symmetrien und Translationen mitsamt ihren Anwendungen betrachten.
+  
+  Am Ende möchte ich noch einen kleinen Exkurs in einen interessanten Zusammenhang zwischen Gibbs-Maßen und einer physikalischen Kenngröße mithilfe des sogenannten Variationsprinzip herstellen.
+  
+  \section{Eindeutigkeit von Gibbs-Maßen}
+  \subsection{Der Satz von Dobrushin}
+  
+  Der Satz von Dobrushin wird uns bei geringen \glqq Fluktuationen \grqq{} Eindeutigkeit des Gibbs-Maßes liefern. Um dies etwas genauer zu fassen, führen wir zunächst einiges an Notation ein.
+  Wir betrachten in dieser Sektion sehr häufig stochastische Kerne, die auf nur einem Gitterpunkt $i \in \Z^d$ mit der Randbedingung $\w$ messen. Deshalb schreibe ich $\pi_i (\cdot \mid \w) := \pi_{\{i\}}( \cdot \mid \w)$. Zunächst erinnern wir uns an folgende Definiton:
+  \begin{definition}
+   Seinen $\mu$ und $\nu$ Wahrscheinlichkeitsmaße auf dem Messraum $(\W, \F)$. Die \emph{Variationsdistanz} ist definiert als 
+   \[
+    \| \mu - \nu \|_{TV} := 2\sup_{A \in \F} | \mu(A) - \nu(A) |.
+   \]
+  \end{definition}
+  Im Falle, dass $\W$ abzählbar ist, gilt auch $\| \mu - \nu \|_{TV} = \sum_{\w \in \W} | \mu(w) - \nu(w) |$. Den Beweis dafür verschieben wir in den Anhang \ref{}. Angewandt auf unsere Situation ergibt sich
+  \[
+    \| \pi_i(\cdot \mid \w) - \pi(\cdot \mid \w^{\prime}) \|_{TV} = \sum_{\eta_i = \pm 1} \left| \pi_i(\eta_i \mid \w) - \pi_i(\eta_i \mid \w^{\prime}) \right|.
+   \]
+  
+  Um den Satz von Dobrushin formulieren zu können, benötigen wir außerdem die Bezeichnungsweisen
+  \[
+   c_{ij}(\pi) := \sup_{\substack{\w, \w^{\prime} \in \W \\ \w_k=\eta_k \forall k \neq i}} \| \pi_i(\cdot \mid \w) - \pi_i (\cdot \mid \w^{prime}) \| \quad \text{und} \quad c(\pi) := \sup_{i \in \Z^d} \sum_{j \in \Z^d}c_{ij}(\pi).
+  \]
+
+  Wir können $c(\pi)$ als eine Kenngröße verstehen, die beschreibt, wie groß der Einfluss eines Gitterpunktes $i \in \Z^d$ auf alle anderen Gitterpunkte unter $\pi$ höchstens sein kann. Damit können wir nun den Satz von Dobrushin formulieren.
+  
+  \begin{satz}
+   Sei $\pi$ eine quasilokale Spezifikation, die 
+   \begin{equation}
+    c(\pi) < 1
+   \end{equation}
+   erfüllt. Dann ist das durch $\pi$ spezifizierte Wahrscheinlichkeitsmaß eindeutig, also $|\G(\pi)| = 1$.
+  \end{satz}
+
+  Bevor wir uns dem Beweis zuwenden, wollen wir zunächst etwas Notation einführen.
+  \begin{definition}
+   Definiere für eine Funktion $f: \W \to \R$ durch
+   \[
+    \delta_i(f) := \sup_{\substack{\w, \w^{\prime} \in \W \\ \w_k=\eta_k \forall k \neq i}} | f(\w) - f(\eta) |
+   \]
+   die Oszillation von $f$ in $i \in \Z^d$. Bezeichne mit
+   \[
+    \Delta(f) = \sum_{i \in \Z^d} \delta_i(f)
+   \]
+   die Gesamtoszillation. Wir bezeichnen die Menge der Funktionen, für die $\Delta(f) < \infty$ gilt, mit $\mathscr{O(\W)}$ und $C_{\mathscr{O}}(\W) = \mathscr{O}(\W) \cap C(\W)$. 
+  \end{definition}
+  
+  Mithilfe der Dreiecksungleichung ist leicht einzusehen, dass für zwei Konfigurationen $\w, \eta \in \W$ mit $\w_{\stcomp{\Lambda}} = \eta_{\stcomp{\Lambda}}$ 
+  \[
+   | f(\w) - f(\eta) | \leq \sum_{i \in \Lambda} \delta_i(f)
+  \]
+  gilt.
+
+  Ganz ähnlich wird das folgende Lemma eingesehen.
+  \begin{lemma}
+   Sei $f \in C_{\mathscr{O}}(\W)$. Dann gilt $\Delta(f) \geq \sup f - \inf f$.
+  \end{lemma}
+  \begin{proof}
+   Da $f$ stetig ist, nimmt es sein Maximum und sein Minimum an. S
+  \end{proof}
+
+  
+  
+  \subsubsection{Anwendung auf Gibbs-Spezifikationen}
+  
+  \subsection{Eine alternative Charakterisierung der Eindeutigkeit und Cluster Expansion}
+  \section{Symmetrien und Translationen}
+
+
+
 \end{document}
