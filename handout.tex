@@ -1,0 +1,79 @@
+\documentclass{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{bm}
+
+\usepackage{cite}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\E}{\ensuremath{\mathbf{E}}}
+\newcommand{\X}{\ensuremath{\mathcal{X}}}
+\newcommand{\Prob}{\ensuremath{\mathbf{P}}}
+\newcommand{\Var}{\ensuremath{\mathrm{Var}}}
+\newcommand{\Cov}{\ensuremath{\mathrm{Cov}}}
+\newcommand{\TV}{\ensuremath{\mathrm{TV}}}
+\newcommand{\one}{\ensuremath{\bm{1}}}
+\newcommand{\A}{\ensuremath{\mathcal{A}}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Definition}
+\newtheorem{bemerkung}[satz]{Bemerkung}
+\newtheorem{beispiel}[satz]{Beispiel}
+
+
+\makeatletter
+ \def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
+
+\newcommand{\handouttitle}[4]
+ {\begin{center}
+    \Large #4
+  \end{center}
+
+  \bigskip
+
+  \noindent
+  #1 (\textsf{#2})
+  \hfill
+  #3
+  \blfootnote{Seminar \glqq Markovketten und stochastische Algorithmen\grqq, SS 2020, Universität Bonn}
+
+  \noindent
+  \rule{\linewidth}{.5pt}
+  
+  \bigskip
+  \@afterindentfalse\@afterheading
+ }
+
+\makeatother
+
+\begin{document}
+
+  \handouttitle{Ben Breitinger}
+               {ben.breitinger@uni-bonn.de}
+               {30. Juni 2020}
+               {Untere Schranken für Mischzeiten, Bottlenecks}
+  
+  \begin{abstract}
+    Da wir das Konvergenzverhalten nicht nur von oben, sondern auch von unten beschränken wollen, interessieren uns untere Schranken für die Mischzeit. 
+    Dazu führen wir das Flaschenhals-Verhältnis, welches ein auf Graphen besonders anschauliches Konstrukt ist, ein, womit wir Abschätzungen für untere Schranken von $t_{\text{mix}}$ erhalten werden. 
+    Diese wenden wir auf zwei aneinandergeklebte Tori und einen Binärbaum an.
+
+    In einem weiteren Abschnitt werden wir eine statistische Methode entwickeln, um untere Schranken für $t_{\text{mix}}$ zu erhalten. Mithilfe dieser neugewonnen Techniken werden wir eine Abschätzung für die Mischzeit eines Random Walks auf dem Hyperwürfel herleiten. 
+  \end{abstract}
+\end{document}
